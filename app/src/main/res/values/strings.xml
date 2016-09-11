@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Munch</string>
+    <string name="app_name">Jazz Media</string>
     <string name="action_settings">Settings</string>
     <string name="loading_feeds">Loading feeds</string>
     <string name="cancel">Cancel</string>
@@ -299,12 +299,12 @@
     <string name="no_content_available">No Content Available</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="splash_title_1">Munch</string>
+    <string name="splash_title_1">Jazz Media</string>
     <string name="splash_title_2">Read RSS feeds easily</string>
-    <string name="splash_title_3">Manage, Archive and share your feeds</string>
-    <string name="splash_desc_1">A Minimalistic Rss Reader</string>
+    <string name="splash_title_3">Archive and share your feeds</string>
+    <string name="splash_desc_1">A Minimalistic News Reader</string>
     <string name="splash_desc_2">Scroll swiftly through the available feeds</string>
-    <string name="splash_desc_3">Add your own Rss feed sources, manage them and read the articles associated with the feeds</string>
+    <string name="splash_desc_3">Read the articles associated with the feeds, archive them and share them</string>
 
     <string name="title_activity_about">About</string>
     <string name="created_by">Kartik Sharma\n(Aka Chdev)</string>
@@ -344,8 +344,8 @@
     <string name="syncing_feeds">Syncing feeds</string>
     <string name="sync">Sync</string>
     <string name="feeds_synced">Feeds synced</string>
-    <string name="downloading_feeds">Downloading feeds - Munch</string>
-    <string name="download_complete">Download complete - Munch</string>
+    <string name="downloading_feeds">Downloading feeds - Jazz Media</string>
+    <string name="download_complete">Download complete - Jazz Media</string>
     <string name="contributions">Contributions</string>
     <string name="contributions_desc">These people contributed in the development of this app.</string>
 
