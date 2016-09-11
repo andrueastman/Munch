@@ -83,8 +83,8 @@ public class HomeActivity extends AppCompatActivity implements ISourceView , Ada
     LinearLayout categoryLayout;
     @Bind(R.id.spinner_sources)
     Spinner spinnerSources;
-    @Bind(R.id.nav_view)
-    NavigationView navigationView;
+    //@Bind(R.id.nav_view)
+    //NavigationView navigationView;
     @Bind(R.id.drawer_layout)
     DrawerLayout drawer;
     int mNavPosition = 0;
@@ -121,15 +121,14 @@ public class HomeActivity extends AppCompatActivity implements ISourceView , Ada
 
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        //drawer.setDrawerListener(toggle);
+        //toggle.syncState();
 
-        navigationView.setNavigationItemSelectedListener(this);
+       // navigationView.setNavigationItemSelectedListener(this);
 
         //set the first item enabled true
-        navigationView.getMenu().getItem(0).setChecked(true);
+        //navigationView.getMenu().getItem(0).setChecked(true);
 
         //show changelog if user opens the app for first time
         if (SettingsPreferences.CHANGE_LOG_DIALOG_SHOW) {
