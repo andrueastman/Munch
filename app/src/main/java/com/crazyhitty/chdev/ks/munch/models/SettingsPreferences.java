@@ -201,17 +201,13 @@ public class SettingsPreferences {
     }
 
     public static void showChangeLog(Context context) {
-        MaterialDialog changeLogDialog = new MaterialDialog.Builder(context)
-                .title(R.string.change_log)
-                .content(R.string.change_log_desc)
-                .negativeText(R.string.dismiss)
-                .build();
-        changeLogDialog.show();
+        //MaterialDialog changeLogDialog = new MaterialDialog.Builder(context).title(R.string.change_log).content(R.string.change_log_desc).negativeText(R.string.dismiss).build();
+        //changeLogDialog.show();
     }
 
     private static void isChangeDialogToBeShown(Context context) {
         if (!getOldAppVersion(context).equals(getCurrAppVersion(context))) {
-            CHANGE_LOG_DIALOG_SHOW = true;
+            CHANGE_LOG_DIALOG_SHOW = false;
             setAppVersion(context);
         } else {
             CHANGE_LOG_DIALOG_SHOW = false;

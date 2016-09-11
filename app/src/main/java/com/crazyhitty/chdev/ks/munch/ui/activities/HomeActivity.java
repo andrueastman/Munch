@@ -131,9 +131,9 @@ public class HomeActivity extends AppCompatActivity implements ISourceView , Ada
         //navigationView.getMenu().getItem(0).setChecked(true);
 
         //show changelog if user opens the app for first time
-        if (SettingsPreferences.CHANGE_LOG_DIALOG_SHOW) {
+        /*if (SettingsPreferences.CHANGE_LOG_DIALOG_SHOW) {
             SettingsPreferences.showChangeLog(HomeActivity.this);
-        }
+        }*/
     }
 
     private void setActivityTheme() {
