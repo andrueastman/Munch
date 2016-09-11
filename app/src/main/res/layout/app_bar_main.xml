@@ -51,7 +51,7 @@
 
     <include layout="@layout/content_home" />
 
-    <com.github.clans.fab.FloatingActionMenu
+  <!--  <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,6 +59,6 @@
         android:layout_margin="@dimen/fab_margin"
         fab:menu_colorNormal="@color/colorAccent"
         fab:menu_colorPressed="@color/colorAccentDark"
-        fab:menu_colorRipple="@color/colorAccentLight" />
+        fab:menu_colorRipple="@color/colorAccentLight" /> -->
 
 </android.support.design.widget.CoordinatorLayout>
