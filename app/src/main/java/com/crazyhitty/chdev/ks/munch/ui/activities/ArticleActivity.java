@@ -289,7 +289,7 @@ public class ArticleActivity extends AppCompatActivity implements IArticleView, 
         if (id == R.id.action_share) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_SUBJECT, getFeedItem().getItemTitle());
-            intent.putExtra(Intent.EXTRA_TEXT, getFeedItem().getItemLink() + "\n\n" + txtContent.getText().toString());
+            intent.putExtra(Intent.EXTRA_TEXT, getFeedItem().getItemLink());
             intent.setType("text/plain");
             startActivity(intent);
             return true;
