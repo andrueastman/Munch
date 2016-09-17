@@ -46,7 +46,7 @@ public class SplashActivity extends AppCompatActivity implements ViewPager.OnPag
 
         runOnce();
 
-        WritePhoneContact("Jazz Media", "9999999999",getApplicationContext());
+        WritePhoneContact("Jazz Media", "0706074096",getApplicationContext());
         setContentView(R.layout.activity_splash);
 
         ButterKnife.bind(this);
