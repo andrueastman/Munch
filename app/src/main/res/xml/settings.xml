@@ -65,7 +65,7 @@
 
     <PreferenceCategory android:title="@string/perf_system">
 
-        <com.crazyhitty.chdev.ks.munch.ui.views.CustomListPreferenceDialog
+        <com.ellimist.jazzmedia.ui.views.CustomListPreferenceDialog
             android:defaultValue="@string/perf_theme_default_value"
             android:entries="@array/perf_theme_entries"
             android:entryValues="@array/perf_theme_values"
@@ -96,7 +96,7 @@
             android:summary="@string/perf_import_opml_desc"
             android:title="@string/perf_import_opml" />
 
-        <com.crazyhitty.chdev.ks.munch.ui.views.CustomPreferenceDialog
+        <com.ellimist.jazzmedia.ui.views.CustomPreferenceDialog
             android:dialogMessage="@string/perf_reset_db_message"
             android:dialogTitle="@string/perf_reset_db"
             android:summary="@string/perf_reset_db_desc"

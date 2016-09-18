@@ -9,7 +9,7 @@
     <string name="feed_url">Feed url</string>
     <string name="save">Save</string>
     <string name="add_feed_title">Add Feed</string>
-    <string name="add_feed">Add your own RSS feed</string>
+    <string name="add_feed">Add your own News feed</string>
 
     <!--font-->
     <string name="roboto_light">sans-serif-light</string>
@@ -300,8 +300,8 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="splash_title_1">Jazz Media</string>
-    <string name="splash_title_2">Read RSS feeds easily</string>
-    <string name="splash_title_3">Archive and share your feeds</string>
+    <string name="splash_title_2">Read news feeds easily</string>
+    <string name="splash_title_3">Archive and share news articles</string>
     <string name="splash_desc_1">A Minimalistic News Reader</string>
     <string name="splash_desc_2">Scroll swiftly through the available feeds</string>
     <string name="splash_desc_3">Read the articles associated with the feeds, archive them and share them</string>

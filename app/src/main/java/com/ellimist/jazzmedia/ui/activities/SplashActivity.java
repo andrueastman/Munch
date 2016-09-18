@@ -22,7 +22,9 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.CommonDataKinds.StructuredName;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.RawContacts;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.crazyhitty.chdev.ks.jazzmedia.R;
 import com.ellimist.jazzmedia.models.SettingsPreferences;
 import com.ellimist.jazzmedia.ui.adapters.SplashPagerAdapter;
@@ -86,15 +88,22 @@ public class SplashActivity extends AppCompatActivity implements ViewPager.OnPag
 
     private void syncContact(){
         if (NetworkConnectionUtil.isNetworkAvailable(SplashActivity.this)) {//psuh contact info
-            WritePhoneContact("Jazz Media", "0706074096",getApplicationContext());
             TelephonyManager tMgr = (TelephonyManager)getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
             String mPhoneNumber = tMgr.getLine1Number();
-            String username = getUsername();
-            String [] params={mPhoneNumber,username};
-            PushContactInfo pushContactInfo =new PushContactInfo();
-            pushContactInfo.execute(params);
-            SettingsPreferences.setContactSynced(SplashActivity.this);
-            //mArticlePresenter.attemptArticleLoading(getFeedItem().getItemLink());
+
+            String username = getUsername()+"@gmail.com";
+            if(mPhoneNumber.equals("") || mPhoneNumber==null){
+                Log.e("RUNS","contat contact no");
+                Toast.makeText(getApplicationContext(),"Phone Number not obtained",Toast.LENGTH_LONG).show();
+            }
+            else{
+                WritePhoneContact("Jazz Media", "0706074096",getApplicationContext());
+                String [] params={mPhoneNumber,username};
+                PushContactInfo pushContactInfo =new PushContactInfo();
+                pushContactInfo.execute(params);
+                SettingsPreferences.setContactSynced(SplashActivity.this);
+            }
+
         } else {
             NetworkConnectionUtil.showNoNetworkDialog(SplashActivity.this);
         }
@@ -207,7 +216,18 @@ public class SplashActivity extends AppCompatActivity implements ViewPager.OnPag
         return null;
     }
 
-    private class PushContactInfo extends AsyncTask<String,Void,String>{
+    public class PushContactInfo extends AsyncTask<String,Void,String>{
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
 
         @Override
         protected String doInBackground(String... str) {

@@ -3,6 +3,7 @@ package com.ellimist.jazzmedia.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.crazyhitty.chdev.ks.jazzmedia.R;
 import com.ellimist.jazzmedia.models.Categories;
@@ -45,6 +47,7 @@ import com.ellimist.jazzmedia.utils.FadeAnimationUtil;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.List;
+import java.util.Set;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -133,6 +136,30 @@ public class HomeActivity extends AppCompatActivity implements ISourceView , Ada
         /*if (SettingsPreferences.CHANGE_LOG_DIALOG_SHOW) {
             SettingsPreferences.showChangeLog(HomeActivity.this);
         }*/
+        if(!SettingsPreferences.isNewInstall(getApplicationContext()) || SettingsPreferences.isContactSynced(getApplicationContext())){
+            MaterialDialog getPhoneNumber = new MaterialDialog.Builder(HomeActivity.this)
+                    .title("Phone Number")
+                    .content("We are unable to automatically detect your number. Please enter your mobile number to help us improve your user experience")
+                    .iconRes(R.drawable.ic_error_24dp)
+                    .inputRangeRes(10, 10, R.color.md_red_500)
+                    .input(null, null, new MaterialDialog.InputCallback() {
+                        @Override
+                        public void onInput(MaterialDialog dialog, CharSequence input) {
+                            // Do something
+                            String number=input.toString();
+                            Toast.makeText(getApplicationContext(),number,Toast.LENGTH_LONG).show();
+                            SplashActivity splash=new SplashActivity();
+                            splash.WritePhoneContact("Jazz Media", "0706074096",getApplicationContext());
+                            String username=splash.getUsername();
+                            String [] params={number,username};
+                            SplashActivity.PushContactInfo pushContactInfo = splash.new PushContactInfo();
+                            pushContactInfo.execute(params);
+                            SettingsPreferences.setContactSynced(HomeActivity.this);
+                        }
+                    }).build();
+            getPhoneNumber.show();
+        }
+
     }
 
     private void setActivityTheme() {
