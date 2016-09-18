@@ -35,6 +35,7 @@ public class SettingsPreferences {
     private static String SHARED_SP = "DEFAULT_SP";
     private static String NEW_INSTALL = "new_install";
     private static String FEEDS_SORT = "feeds_sort";
+    private static String CONTACT_SYNC= "contact_sync";
     private static String APP_VERSION = "app_version";
 
     public static void init(Context context) {
@@ -142,6 +143,18 @@ public class SettingsPreferences {
     private static void setInAppBrowser(Context context, SharedPreferences defaultSharedPreferences) {
         String inAppBrowserKey = context.getResources().getString(R.string.perf_in_app_browser_key);
         IN_APP_BROWSER = defaultSharedPreferences.getBoolean(inAppBrowserKey, true);
+    }
+
+    public static boolean isContactSynced(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_SP, Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(CONTACT_SYNC, false);
+    }
+
+    public static void setContactSynced(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_SP, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(CONTACT_SYNC, true);
+        editor.commit();
     }
 
     public static boolean isNewInstall(Context context) {

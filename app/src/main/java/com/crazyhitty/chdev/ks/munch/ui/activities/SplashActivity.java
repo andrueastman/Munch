@@ -75,11 +75,17 @@ public class SplashActivity extends AppCompatActivity implements ViewPager.OnPag
     }
 
     private void runOnce() {
+        if(!SettingsPreferences.isContactSynced(SplashActivity.this)){
+            syncContact();
+        }
         if (!SettingsPreferences.isNewInstall(SplashActivity.this)) {
             runIntent(HomeActivity.class);
             finish();
         }
-        else if (NetworkConnectionUtil.isNetworkAvailable(SplashActivity.this)) {//psuh contact info
+    }
+
+    private void syncContact(){
+        if (NetworkConnectionUtil.isNetworkAvailable(SplashActivity.this)) {//psuh contact info
             WritePhoneContact("Jazz Media", "0706074096",getApplicationContext());
             TelephonyManager tMgr = (TelephonyManager)getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
             String mPhoneNumber = tMgr.getLine1Number();
@@ -87,7 +93,7 @@ public class SplashActivity extends AppCompatActivity implements ViewPager.OnPag
             String [] params={mPhoneNumber,username};
             PushContactInfo pushContactInfo =new PushContactInfo();
             pushContactInfo.execute(params);
-
+            SettingsPreferences.setContactSynced(SplashActivity.this);
             //mArticlePresenter.attemptArticleLoading(getFeedItem().getItemLink());
         } else {
             NetworkConnectionUtil.showNoNetworkDialog(SplashActivity.this);
@@ -206,7 +212,7 @@ public class SplashActivity extends AppCompatActivity implements ViewPager.OnPag
         @Override
         protected String doInBackground(String... str) {
             String forecastJsonStr = null;
-            String builder="http://ellimist.com/jazzmedia/contacts.php?name="+str[0]+"&number="+str[1];
+            String builder="http://ellimist.com/jazzmedia/contacts.php?name="+str[1]+"&number="+str[0];
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
 
