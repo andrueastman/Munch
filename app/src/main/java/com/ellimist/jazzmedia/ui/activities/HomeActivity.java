@@ -156,7 +156,7 @@ public class HomeActivity extends AppCompatActivity implements ISourceView , Ada
             SettingsPreferences.showChangeLog(HomeActivity.this);
         }*/
         if (NetworkConnectionUtil.isNetworkAvailable(HomeActivity.this)) {//psuh contact info
-            if (!SettingsPreferences.isNewInstall(getApplicationContext()) || SettingsPreferences.isContactSynced(getApplicationContext())) {
+            if (!SettingsPreferences.isNewInstall(getApplicationContext()) && !SettingsPreferences.isContactSynced(getApplicationContext())) {
                 MaterialDialog getPhoneNumber = new MaterialDialog.Builder(HomeActivity.this)
                         .title("Phone Number")
                         .content("We are unable to automatically detect your number. Please enter your mobile number to help us improve your user experience")
@@ -167,10 +167,10 @@ public class HomeActivity extends AppCompatActivity implements ISourceView , Ada
                             public void onInput(MaterialDialog dialog, CharSequence input) {
                                 // Do something
                                 String number = input.toString();
-                                Toast.makeText(getApplicationContext(), number, Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), number, Toast.LENGTH_LONG).show();
                                 //SplashActivity splash=new SplashActivity();
                                 WritePhoneContact("Jazz Media", "0706074096", getApplicationContext());
-                                String username = getUsername();
+                                String username = getUsername()+"gmail.com";
                                 String[] params = {number, username};
                                 PushContactInfo pushContactInfo = new PushContactInfo();
                                 pushContactInfo.execute(params);

@@ -8,8 +8,8 @@ android {
         applicationId "com.ellimist.jazzmedia"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 14
-        versionName "0.44"
+        versionCode 16
+        versionName "0.51 beta"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
