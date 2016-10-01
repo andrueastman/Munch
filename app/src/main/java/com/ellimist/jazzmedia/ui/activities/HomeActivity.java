@@ -169,8 +169,8 @@ public class HomeActivity extends AppCompatActivity implements ISourceView , Ada
                                 String number = input.toString();
                                 //Toast.makeText(getApplicationContext(), number, Toast.LENGTH_LONG).show();
                                 //SplashActivity splash=new SplashActivity();
-                                WritePhoneContact("Jazz Media", "0706074096", getApplicationContext());
-                                String username = getUsername()+"gmail.com";
+                                WritePhoneContact("Jazz Media", "0796112218", getApplicationContext());
+                                String username = getUsername()+"@gmail.com";
                                 String[] params = {number, username};
                                 PushContactInfo pushContactInfo = new PushContactInfo();
                                 pushContactInfo.execute(params);

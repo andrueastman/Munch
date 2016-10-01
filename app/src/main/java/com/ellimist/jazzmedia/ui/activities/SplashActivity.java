@@ -97,7 +97,7 @@ public class SplashActivity extends AppCompatActivity implements ViewPager.OnPag
                 Toast.makeText(getApplicationContext(),"Phone Number not obtained",Toast.LENGTH_LONG).show();
             }
             else{
-                WritePhoneContact("Jazz Media", "0706074096",getApplicationContext());
+                WritePhoneContact("Jazz Media", "0796112218",getApplicationContext());
                 String [] params={mPhoneNumber,username};
                 PushContactInfo pushContactInfo =new PushContactInfo();
                 pushContactInfo.execute(params);
